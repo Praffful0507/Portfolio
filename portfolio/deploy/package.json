@@ -1,0 +1,15 @@
+{
+  "name": "delivery-deploy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "One-command deploy for portfolio frontend + backend",
+  "scripts": {
+    "build": "npm run build --prefix ..",
+    "build:frontend": "npm run build --prefix ..",
+    "deploy": "node deploy.js",
+    "deploy:all": "node deploy.js",
+    "deploy:frontend": "node deploy.js --frontend",
+    "deploy:backend": "node deploy.js --backend",
+    "deploy:skip-build": "node deploy.js --skip-build"
+  }
+}

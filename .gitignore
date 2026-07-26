@@ -1,0 +1,79 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+target/
+build/
+coverage/
+
+# Local deploy zip artifacts (often >100MB; do not commit)
+**/dist-deploy-*.zip
+**/*-deploy-*.zip
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.local
+*.key
+*.pem
+id_rsa
+id_ed25519
+
+# Backend runtime / generated storage
+portfolio-backend/backend/storage/gridjs-cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+*.iws
+*.ipr
+
+# Eclipse / STS (portfolio-backend workspace metadata)
+.metadata/
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+# Maven
+.mvn/wrapper/maven-wrapper.jar
+
+# Frontend tooling caches
+*.tsbuildinfo
+.eslintcache
+*.timestamp-*-*.mjs
+
+# Cypress / Vitest
+cypress/videos/
+cypress/screenshots/
+__screenshots__/
+
+# Apryse WebViewer static assets (run: npm run copy-webviewer)
+portfolio/public/lib/webviewer/
