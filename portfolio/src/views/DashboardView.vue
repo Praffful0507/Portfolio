@@ -1,56 +1,56 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import DashboardTile from '@/components/DashboardTile.vue'
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import DashboardTile from "@/components/DashboardTile.vue";
 
 interface Tool {
-  id: string
-  title: string
-  description: string
-  accent: string
-  route?: string
+  id: string;
+  title: string;
+  description: string;
+  accent: string;
+  route?: string;
 }
 
-const router = useRouter()
+const router = useRouter();
 
 const tools: Tool[] = [
   {
-    id: 'excel',
-    title: 'Excel Render',
-    description: 'Open and preview spreadsheet files',
-    accent: '#217346',
-    route: '/excel',
+    id: "excel",
+    title: "Excel Render",
+    description: "Open and preview spreadsheet files",
+    accent: "#217346",
+    route: "/excel",
   },
   {
-    id: 'docx',
-    title: 'Docx Viewer',
-    description: 'Read Word documents in the browser',
-    accent: '#2B579A',
-    route: '/docx',
+    id: "docx",
+    title: "Docx Viewer",
+    description: "Read Word documents in the browser",
+    accent: "#2B579A",
+    route: "/docx",
   },
   {
-    id: 'calendar',
-    title: 'Calendar',
-    description: 'Schedule and manage your events',
-    accent: '#C43E1C',
-    route: '/calendar',
+    id: "calendar",
+    title: "Calendar",
+    description: "Schedule and manage your events",
+    accent: "#C43E1C",
+    route: "/calendar",
   },
   {
-    id: 'pdf',
-    title: 'PDF Viewer',
-    description: 'View and navigate PDF documents',
-    accent: '#E5252A',
-    route: '/pdf',
+    id: "pdf",
+    title: "PDF Viewer",
+    description: "View and navigate PDF documents",
+    accent: "#E5252A",
+    route: "/pdf",
   },
-]
+];
 
-const selectedId = ref<string | null>(null)
+const selectedId = ref<string | null>(null);
 
 function selectTool(id: string) {
-  selectedId.value = id
-  const tool = tools.find((t) => t.id === id)
+  selectedId.value = id;
+  const tool = tools.find((t) => t.id === id);
   if (tool?.route) {
-    router.push(tool.route)
+    router.push(tool.route);
   }
 }
 </script>
@@ -76,7 +76,7 @@ function selectTool(id: string) {
       />
 
       <button
-        v-for="n in 2"
+        v-for="n in 1"
         :key="`empty-${n}`"
         type="button"
         class="dashboard__slot"
@@ -107,7 +107,7 @@ function selectTool(id: string) {
 }
 
 .dashboard__brand {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -117,7 +117,7 @@ function selectTool(id: string) {
 }
 
 .dashboard__title {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: "Fraunces", Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -127,7 +127,7 @@ function selectTool(id: string) {
 
 .dashboard__subtitle {
   margin-top: 0.5rem;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   font-size: 1rem;
   color: #6b7280;
 }
@@ -170,7 +170,7 @@ function selectTool(id: string) {
 
 .dashboard__status {
   margin-top: 2rem;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: "DM Sans", system-ui, sans-serif;
   font-size: 0.95rem;
   color: #4b5563;
   animation: rise 0.35s ease both;

@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'pdf',
       component: () => import('../views/PdfViewerView.vue'),
     },
+    {
+      path: '/lovely',
+      name: 'lovely',
+      component: () => import('../views/LovelyView.vue'),
+    },
   ],
 })
 

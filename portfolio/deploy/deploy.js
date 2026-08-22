@@ -200,13 +200,15 @@ async function deployFrontend() {
   if (fs.existsSync(localZip)) fs.unlinkSync(localZip);
 
   if (process.platform === "win32") {
-    await run("powershell.exe", [
-      "-NoProfile",
-      "-Command",
-      `Compress-Archive -Path '${buildDir}\\*' -DestinationPath '${localZip}' -Force`,
-    ]);
+    // bsdtar opens sources with shared access, so an antivirus scan of freshly
+    // built files cannot break the archive the way Compress-Archive did.
+    await run("tar", ["-a", "-c", "-f", localZip, "-C", buildDir, "."]);
   } else {
     await run("zip", ["-r", localZip, "."], { cwd: buildDir });
+  }
+
+  if (!fs.existsSync(localZip)) {
+    fail(`Zip was not created: ${localZip}`);
   }
 
   log("frontend", "Uploading zip...");
@@ -333,13 +335,28 @@ async function deployBackend() {
 
 async function deployBothInParallel() {
   const jobs = [];
-  if (doFrontend) jobs.push(deployFrontend());
-  if (doBackend) jobs.push(deployBackend());
+  if (doFrontend) jobs.push({ name: "frontend", promise: deployFrontend() });
+  if (doBackend) jobs.push({ name: "backend", promise: deployBackend() });
 
   if (!jobs.length) return;
 
   log("deploy", `Uploading ${jobs.length} target(s) in parallel...`);
-  await Promise.all(jobs);
+  // Wait for every target even when one fails: exiting mid-deploy can leave the
+  // backend service stopped with no jar in place.
+  const results = await Promise.allSettled(jobs.map((job) => job.promise));
+
+  const failures = results
+    .map((result, index) => ({ result, name: jobs[index].name }))
+    .filter(({ result }) => result.status === "rejected");
+
+  if (failures.length) {
+    throw new Error(
+      failures
+        .map(({ name, result }) => `${name} failed: ${result.reason.message}`)
+        .join("\n")
+    );
+  }
+
   log("deploy", "All uploads finished.");
 }
 
